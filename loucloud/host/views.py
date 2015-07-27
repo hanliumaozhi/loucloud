@@ -7,10 +7,10 @@ from .models import Host
 from ..dbs import db
 
 
-host = Blueprint('host', __name__, url_prefix='/')
+host = Blueprint('host', __name__, url_prefix='/hosts')
 
 
-@host.route('', methods=['GET', 'POST'])
+@host.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         form = AddHostForm()
@@ -27,7 +27,7 @@ def index():
         return redirect(url_for('host.index'))
 
 
-@host.route('host/<int:host_id>/delete', methods=['GET'])
+@host.route('/<int:host_id>/delete', methods=['GET'])
 def delete_host(host_id):
     host_instance = Host.query.filter(Host.id==host_id).first()
     if host_instance:
